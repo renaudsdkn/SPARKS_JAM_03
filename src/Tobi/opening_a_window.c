@@ -18,10 +18,15 @@ move_player_t event_handler(sfEvent e, sfRenderWindow *w, sfVector2f sc, move_pl
     return p;
 }
 
-affiche my_texture(void)
+affiche my_texture(move_player_t p)
 {
     affiche key;
     sfVector2f scale = {1, 0.55};
+    sfIntRect p_rect = sfSprite_getTextureRect(p.sprite);
+    p_rect.height += -400;
+    p_rect.width += -400;
+    p_rect.left += -400;
+    p_rect.top += -400;
 
     key.texture = sfTexture_createFromFile("./src/Tobi/lab.jpg", NULL);
     key.sprite = sfSprite_create();
@@ -37,13 +42,13 @@ void draw_sprite(affiche key)
 
 int launch_labyrinth(sfRenderWindow *window)
 {
-    affiche key = my_texture();
     sfVector2f scale = {0.4, 0.35};
     sfVector2f life_pos = {1700, 10};
     sfVideoMode m = {1920, 1080, 32};
     rect_t *rectangle = my_rectangle(rectangle);
     move_player_t p = init_move_player_t_struct(p);
     int i = 0;
+    affiche key = my_texture(p);
 
     key.window = window;
     sfRenderWindow_setFramerateLimit(key.window, 700);
@@ -56,8 +61,17 @@ int launch_labyrinth(sfRenderWindow *window)
             sfRenderWindow_drawRectangleShape(key.window, rectangle[i].rect, NULL);
             i++;
         }
+        sfIntRect p_rect = sfSprite_getTextureRect(p.sprite);
+        p_rect.height += -400;
+        p_rect.width += -400;
+        p_rect.left += -400;
+        p_rect.top += -400;
+        sfVector2f pos = {500 , 0};
+        sfSprite_setPosition(p.sprite, pos);
+        //sfSprite_setTextureRect(p.sprite, p_rect);
         set_and_draw_player(p, key.window);
         sfRenderWindow_display(key.window);
+        //sfTexture_s
     }
     for (i = 0; rectangle[i].rect != NULL; i++)
         sfRectangleShape_destroy(rectangle[i].rect);
