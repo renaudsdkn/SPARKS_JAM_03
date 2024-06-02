@@ -5,7 +5,7 @@
 ** move_player_t.c
 */
 
-#include "../../include/jam.h"
+#include "../../../include/jam.h"
 
 int main(void)
 {
@@ -17,8 +17,8 @@ int main(void)
     sfClock *clock = sfClock_create();
     sfSprite *sprite = sfSprite_create();
     sfSprite *background_sprite = sfSprite_create();
-    sfTexture *texture = sfTexture_createFromFile("male.png", NULL);
-    sfTexture *background_texture = sfTexture_createFromFile("Forest.jpg", NULL);
+    sfTexture *texture = sfTexture_createFromFile("../img/male.png", NULL);
+    sfTexture *background_texture = sfTexture_createFromFile("../image/Forest.jpg", NULL);
 
     rect.top = 0;
     rect.left = 0;
