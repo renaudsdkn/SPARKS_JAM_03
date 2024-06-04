@@ -6,10 +6,13 @@
 */
 
 #include "../../include/jam.h"
-#define MOUSE event.mouseButton
 #include "my.h"
+#define MOUSE event.mouseButton
+//pos 1 x :965, y :559
+//pos 2 x :968, y :630
+//pos 3 x :966, y :701
+//pos 4 x :965, y :770
 int k;
-
 sfSound *sound()
 {
     sfSound *sound;
@@ -31,6 +34,10 @@ void afficher_Notice(sfRenderWindow *window, sfEvent event)
     sfSprite_setTexture(sprite, notice, sfTrue);
     sfSprite_setPosition(sprite,  (sfVector2f){710, 400});
     sfRenderWindow_drawSprite(window, sprite, NULL);
+    /*if (event.type == sfEvtMouseButtonPressed /*&& MOUSE.x >= 1047
+						 && MOUSE.x <= 1150 && MOUSE.y >= 730 && MOUSE.y <= 757)
+	 //k = 0;
+	 printf("x1:%d, y2 :%d", MOUSE.x,MOUSE.y);*/
 }
 
 void draw_text(sfRenderWindow *window, char *string, sfVector2f position, int size)
@@ -41,7 +48,7 @@ void draw_text(sfRenderWindow *window, char *string, sfVector2f position, int si
     text = sfText_create();
     sfText_setString(text, string);
     sfText_setFont(text, font);
-    sfText_setCharacterSize(text, size);
+    sfText_setCharacterSize(text, size); //35
     sfText_setPosition(text, position);
     sfText_setColor(text, (sfColor)sfColor_fromRGB(173, 255, 47)); //rgb(240,128,128)
     //rgb(205,92,92)
@@ -60,17 +67,20 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
     if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 944
         && MOUSE.x <= 1098) {
 	if (MOUSE.y >= 550 && MOUSE.y <= 586)
-	    printf("couper le son");
+	    printf("aaaa");
 	if (MOUSE.y >= 613 && MOUSE.y <= 650)
-            printf("allumer le son");
+            printf("iii");
 	if (MOUSE.y >= 682 && MOUSE.y <= 718)
+            //printf("oooo");
 	    k = 1;
 	if (MOUSE.y >= 752 && MOUSE.y <= 790)
-            printf("Appeler la fonction du menu");
+            printf("uuuuu");
+        //return 1;
         }
 	if (event.type == sfEvtMouseButtonPressed && k == 1 && MOUSE.x >= 1155
 	&& MOUSE.x <= 1228 && MOUSE.y >= 706 && MOUSE.y <= 747)
 	    k = 0;
+	    //printf("x1:%d, y2 :%d", MOUSE.x,MOUSE.y);
     return 0;
 }
 
@@ -79,7 +89,7 @@ void settings(sfRenderWindow* window)
     k = 0;
     int image_index = 0;
     sfVector2f scale = {1.3, 1.3};
-    sfVector2f settings = {780, 200};
+    sfVector2f settings = {780, 200};//800
     sfVector2f pos = {250, 20};
     sfSprite *sprite;
      sfSprite *setting;
@@ -100,6 +110,7 @@ void settings(sfRenderWindow* window)
     sfSprite_setTexture(sprite, texture, sfTrue);
     sfSprite_setTexture(setting, setting_h, sfTrue);
     sfSprite_setScale(sprite, scale);
+    //sfSprite_setPosition(sprite, pos);
     while (sfRenderWindow_isOpen(window)) {
         while (sfRenderWindow_pollEvent(window, &event)) {
             menu_event(window, event, &image_index);
@@ -107,6 +118,8 @@ void settings(sfRenderWindow* window)
         sfRenderWindow_clear(window, sfBlack);
 	sfSprite_setScale(setting, (sfVector2f){1, 1});
 	sfSprite_setPosition(setting,  (sfVector2f){800, 400});
+        //time = sfClock_getElapsedTime(clock);
+        //seconds = time.microseconds / 1000000.0;
         sfRenderWindow_drawSprite(window, sprite, NULL);
 	if (k != 1) {
 	sfRenderWindow_drawSprite(window, setting, NULL);
@@ -115,16 +128,29 @@ void settings(sfRenderWindow* window)
 	fonter((sfVector2f){965, 616}, key[0], "ENABLED", window);
 	fonter((sfVector2f){967, 686}, key[0], "NOTICE", window);
 	fonter((sfVector2f){981, 755}, key[0], "MENU", window);
-	} else 
+	}
+	if (k == 1) 
 	    afficher_Notice(window, event);
+	//draw_text(window, "Settings", settings, 80); //45
+        /*if (seconds > 0.10) {
+            move_rect(&rect);
+            position(&pos);
+            
+            sfSprite_setTextureRect(sprite, rect);
+            
+            sfRenderWindow_drawSprite(window, sprite, NULL);
+            z++;
+            sfClock_restart(clock);
+	    }*/
+        //sfSleep(sfMilliseconds(380));
         sfRenderWindow_display(window);
     }
 }
 
-/*int main(void)
+int main(void)
 {
     sfRenderWindow* window;
     sfVideoMode mode = {1920, 1080};
     window = sfRenderWindow_create(mode, "settings", sfResize | sfClose, NULL);
     settings(window);
-    }*/
+}
