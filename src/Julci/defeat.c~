@@ -190,19 +190,21 @@ int menu_event(sfRenderWindow *window, sfEvent event, int *image_index)
         sfRenderWindow_close(window);
     if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 689
 	&& MOUSE.x <= 758 && MOUSE.y >= 705 && MOUSE.y <= 774) {
-	printf("reset");
+	printf("iii");
         return 1;
 	}
     if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 794              
         && MOUSE.x <= 863 && MOUSE.y >= 682 && MOUSE.y <= 749) {
-        printf("play");
+        printf("eee");
         return 1;
 	}
     if (event.type == sfEvtMouseButtonPressed && MOUSE.x >= 908             
         && MOUSE.x <= 982 && MOUSE.y >= 705 && MOUSE.y <= 782) {
-        printf("back");
+        printf("aaa");
         return 1;
         }
+    if (event.type == sfEvtMouseButtonPressed)
+        printf("x1:%d, y2 :%d", MOUSE.x,MOUSE.y);
     return 0;
 }
 
